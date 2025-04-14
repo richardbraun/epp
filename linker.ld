@@ -17,6 +17,7 @@ SECTIONS
         _svector = .;
         KEEP(*(.vectors))
         KEEP(*(.reset_handler))
+        KEEP(*(.tim6_irq_handler))
         . = ALIGN(4);
         _evector = .;
     } > flash
@@ -26,7 +27,7 @@ SECTIONS
         . = ALIGN(4);
         _stext = .;                   
         *(.text .text.*)
-        *(.rodata .rodata*)                                           
+        *(.rodata .rodata.*)
         . = ALIGN(4);
         _etext = .;
     } > flash

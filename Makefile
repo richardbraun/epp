@@ -12,7 +12,7 @@ CFLAGS += -Wall -Wextra -Wmissing-prototypes -Wstrict-prototypes
 CFLAGS += -Wshadow -Werror=implicit
 CFLAGS += -nostdlib -mcpu=cortex-m4
 
-LDFLAGS = -T $(LDSCRIPT) -mcpu=cortex-m4
+LDFLAGS = -T $(LDSCRIPT) $(CFLAGS)
 
 LIBS =
 
