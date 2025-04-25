@@ -1,4 +1,7 @@
 #include <stdint.h>
+
+#include "platform.h"
+
 extern uint32_t _etext;
 extern uint32_t _srelocate;
 extern uint32_t _erelocate;
@@ -15,78 +18,15 @@ extern void TIM6_IRQHandler(void);
  * To initialize the device, and call the main() routine.
  */
 void Reset_Handler(void);
-__attribute__((used, section(".vectors"))) void (*const vectors[])(void) = {
+
+typedef void (*intr_isr_fn_t)(void);
+typedef void (*intr_handler_fn_t)(void *arg);
+
+
+const intr_isr_fn_t vectors[] __attribute__((used, section(".vectors"))) = {
     &_stack_top,
     Reset_Handler,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    TIM6_IRQHandler,
+    [16 + TIM6_DAC_IRQn] = TIM6_IRQHandler,
 };
 
 __attribute__ ((used, section(".reset_handler")))
