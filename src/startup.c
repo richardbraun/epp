@@ -1,6 +1,7 @@
 #include <stdint.h>
 
 #include "platform.h"
+#include "typedef.h"
 
 extern uint32_t _etext;
 extern uint32_t _srelocate;
@@ -11,7 +12,7 @@ extern uint32_t _estack;
 extern void _stack_top(void);
 
 extern int main(void);
-extern void TIM6_IRQHandler(void);
+
 
 /**
  * \brief This is the code that gets called on processor reset.
@@ -19,14 +20,10 @@ extern void TIM6_IRQHandler(void);
  */
 void Reset_Handler(void);
 
-typedef void (*intr_isr_fn_t)(void);
-typedef void (*intr_handler_fn_t)(void *arg);
-
-
 const intr_isr_fn_t vectors[] __attribute__((used, section(".vectors"))) = {
     &_stack_top,
     Reset_Handler,
-    [16 + TIM6_DAC_IRQn] = TIM6_IRQHandler,
+    //[16 + TIM6_DAC_IRQn] = TIM6_IRQHandler,
 };
 
 __attribute__ ((used, section(".reset_handler")))

@@ -18,7 +18,9 @@ LIBS =
 
 SOURCES = \
 	src/startup.c \
-	src/main.c
+	src/main.c \
+	src/timer.c \
+	src/intr.c
 
 OBJECTS = $(patsubst %.S,%.o,$(patsubst %.c,%.o,$(SOURCES)))
 

@@ -4,28 +4,26 @@ OUTPUT_ARCH(arm)
 MEMORY
 {
   flash    (rx)  : ORIGIN = 0x08000000, LENGTH = 1024k
-  ram      (rwx) : ORIGIN = 0x20000000, LENGTH = 128k
+  ram      (rwx) : ORIGIN = 0x20008000, LENGTH = 128k - 0x8000
 }
 
 PROVIDE(_stack_top = ORIGIN(ram) + LENGTH(ram));
 ENTRY(Reset_Handler)
 SECTIONS
 {
-    .vector : 
+    .vector :
     {
         . = ALIGN(4);
         _svector = .;
         KEEP(*(.vectors))
-        KEEP(*(.reset_handler))
-        KEEP(*(.tim6_irq_handler))
         . = ALIGN(4);
         _evector = .;
     } > flash
 
-    .text : 
+    .text :
     {
         . = ALIGN(4);
-        _stext = .;                   
+        _stext = .;
         *(.text .text.*)
         *(.rodata .rodata.*)
         . = ALIGN(4);
