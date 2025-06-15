@@ -133,22 +133,3 @@ intr_init(void)
         intr_handler_fn_attributes_init(intr_handler);
     }
 }
-
-/*
-#define START_BASE 0x20000000UL
-#define BASE ((volatile uint32_t *) START_BASE)
-
-void intr_init(int intr_nr, void (*intr_handler)(void)) {
-    for (int i = 0; i < INTR_NR_INTR; i++) {
-        BASE[i] = (uintptr_t)intr_handler;  // Correct casting
-    }
-    __NVIC_EnableIRQ(intr_nr);
-    
-}
-We first cast it to uintptr_t to ensure safe conversion from an integer to a pointer-sized type.
-
-Then, we cast it to volatile uint32_t *, which correctly represents a pointer to a 32-bit hardware register.
-
-*/
-
-

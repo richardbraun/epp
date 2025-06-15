@@ -3,7 +3,7 @@
 void 
 timer_init(int timer_nr) 
 {
-    if (timer_nr >1 && timer_nr < 15) {
+    if (timer_nr > 1 && timer_nr < 15) {
         RCC->APB1ENR |= 0x1UL << (timer_nr - 2);
     }
 }

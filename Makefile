@@ -20,7 +20,8 @@ SOURCES = \
 	src/startup.c \
 	src/main.c \
 	src/timer.c \
-	src/intr.c
+	src/intr.c \
+	src/gpio.c
 
 OBJECTS = $(patsubst %.S,%.o,$(patsubst %.c,%.o,$(SOURCES)))
 

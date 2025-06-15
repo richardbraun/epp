@@ -1,16 +1,16 @@
+#include "gpio.h"
 #include "intr.h"
-
-#include "timer.h"
 #include "platform.h"
+#include "timer.h"
 
 
 int main(void) {
 
-    RCC->AHB1ENR |= 0x1UL << 5U;
-    GPIOF->MODER |= 0x1UL << 12U;
     int a = 4;
 
     intr_init();
+
+    gpio_init_as_output(GPIOF, 6);
 
     timer_init(6);
 
