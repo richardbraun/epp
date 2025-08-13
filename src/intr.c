@@ -1,7 +1,8 @@
+#include <stdbool.h>
+#include <stddef.h>
 
-
-#include "hlist.h"
 #include "intr.h"
+#include "macro.h"
 #include "platform.h"
 #include "typedef.h"
 
