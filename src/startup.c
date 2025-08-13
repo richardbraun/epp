@@ -1,7 +1,7 @@
 #include <stdint.h>
 
 #include "platform.h"
-#include "typedef.h"
+#include "intr.h"
 
 extern uint32_t _etext;
 extern uint32_t _srelocate;

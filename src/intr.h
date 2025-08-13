@@ -1,10 +1,8 @@
 #ifndef INTR_H
 #define INTR_H
 
-#include "typedef.h"
-
-#define INTR_VECTOR_RAM_BASE         0x20000000UL
-#define INTR_VECTOR_RAM              ((volatile uint32_t *) INTR_VECTOR_RAM_BASE)
+typedef void (*intr_isr_fn_t)(void);
+typedef void (*intr_handler_fn_t)(void *arg);
 
 /*
  * Initialize interrupts.

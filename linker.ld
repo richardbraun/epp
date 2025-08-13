@@ -4,7 +4,7 @@ OUTPUT_ARCH(arm)
 MEMORY
 {
   flash    (rx)  : ORIGIN = 0x08000000, LENGTH = 1024k
-  ram      (rwx) : ORIGIN = 0x20008000, LENGTH = 128k - 0x8000
+  ram      (rwx) : ORIGIN = 0x20000000, LENGTH = 128k
 }
 
 PROVIDE(_stack_top = ORIGIN(ram) + LENGTH(ram));

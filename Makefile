@@ -9,7 +9,7 @@ BINARY = epp
 CFLAGS = -std=c11
 CFLAGS += -Og -g
 CFLAGS += -Wall -Wextra -Wmissing-prototypes -Wstrict-prototypes
-CFLAGS += -Wshadow -Werror=implicit
+CFLAGS += -Wshadow -Werror=implicit -Werror=int-conversion
 CFLAGS += -nostdlib -mcpu=cortex-m4
 
 LDFLAGS = -T $(LDSCRIPT) $(CFLAGS)

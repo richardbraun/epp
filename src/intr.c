@@ -4,12 +4,11 @@
 #include "intr.h"
 #include "macro.h"
 #include "platform.h"
-#include "typedef.h"
 
 #define INTR_TABLE_SIZE 15
-#define INTR_NR_INTR 97
+#define INTR_NR_INTRS 98
 
-extern intr_isr_fn_t vectors[];
+static intr_isr_fn_t intr_vectors[INTR_NR_INTRS];
 
 struct intr_handler_fn_attributes {
     void (*myfunc)(void *arg);
@@ -92,7 +91,7 @@ void TIM6_IRQHandler(void *arg)
 }
 
 static void 
-intr_handler(void)
+intr_handle(void)
 {
     uint32_t regIPSR;
 
@@ -100,7 +99,7 @@ intr_handler(void)
 
     struct intr_handler_fn_attributes *intr_handler = intr_handler_fn_find(regIPSR - 16);
 
-    (*intr_handler->myfunc)(intr_handler->arg);
+    intr_handler->myfunc(intr_handler->arg);
 }
 
 int
@@ -123,14 +122,17 @@ intr_register(int intr_nr, intr_handler_fn_t intr_handler_fn, void *arg)
 void
 intr_init(void)
 {
-    SCB->VTOR = INTR_VECTOR_RAM_BASE; // Point at RAM copy
-
-    for(int i = 0; i < INTR_NR_INTR; i++) {
-        *(INTR_VECTOR_RAM + i) = (uintptr_t) intr_handler;
+    for(int i = 0; i < ARRAY_SIZE(intr_vectors); i++) {
+        intr_vectors[i] = intr_handle;
     }
+
+    __asm volatile("dmb" : : : "memory");
+
+    SCB->VTOR = (uint32_t)intr_vectors;
 
     for(size_t i = 0; i < ARRAY_SIZE(intr_handler_fn_table); i++) {
         struct intr_handler_fn_attributes *intr_handler = &intr_handler_fn_table[i];
+
         intr_handler_fn_attributes_init(intr_handler);
     }
 }
